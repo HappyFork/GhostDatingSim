@@ -1,2 +1,2 @@
-# GhostDatingSim6
+# GhostDatingSim
  Ghost Dating Sim
