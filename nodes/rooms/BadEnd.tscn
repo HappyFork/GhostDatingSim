@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="BadEnd" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 487.332
+margin_top = 271.446
+margin_right = 569.332
+margin_bottom = 285.446
+text = "Game over :)"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,4 @@
+{
+    "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
+    "002" : {"type": "text", "text": "It's too dark to see what's inside.", "next": "end" }
+}

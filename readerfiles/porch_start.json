@@ -1,0 +1,18 @@
+{
+    "001" : {"type": "room", "target": "player", "action": "turn", "direction": "up", "next": "002"},
+    "002" : {"type": "room", "target": "player", "action": "step", "next": "003"},
+    "003" : {"type": "room", "target": "player", "action": "step", "next": "004"},
+    "004" : {"type": "room", "target": "player", "action": "step", "next": "005"},
+    "005" : {"type": "room", "target": "player", "action": "step", "next": "006"},
+    "006" : {"type": "room", "target": "player", "action": "step", "next": "007"},
+    "007" : {"type": "room", "target": "player", "action": "step", "next": "008"},
+    "008" : {"type": "room", "target": "player", "action": "turn", "direction": "down", "next": "009"},
+    "009" : {"type": "room", "target": "camera", "action": "snap", "next": "010"},
+
+    "010" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "011" },
+    "011" : {"type": "text", "text": "What a creepy place.", "next": "012" },
+    "012" : {"type": "text", "text": "If I can't find proof of the supernatural here, then ghosts just don't exist.", "next": "013" },
+    "013" : {"type": "text", "text": "...", "next": "014"},
+    "014" : {"type": "text", "text": "What am I saying? Of course ghosts exist!", "next": "015"},
+    "015" : {"type": "text", "text": "I just hope I can find some proof", "next": "end"}
+}
