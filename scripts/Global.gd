@@ -6,11 +6,14 @@ extends Node
 var porch_gate_checked = 0
 var porch_door_checked = false
 var porch_pot_checked = false
+var foyer_willow_joined = false
+
 var inv = []
 
 
 ### --- Custom functions --- ###
 
+# You know, I could just as easily put all this logic in the reader script.
 func set_var( variable, value ):
 	if typeof( value ) == TYPE_BOOL:
 		match variable:

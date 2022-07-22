@@ -456,10 +456,12 @@ smoothing_enabled = true
 color = Color( 0.215686, 0.2, 0.231373, 1 )
 
 [node name="Reader" parent="." instance=ExtResource( 5 )]
+
 [connection signal="changed_floor" from="YSort/Player" to="." method="_on_KinematicBody2D_changed_floor"]
 [connection signal="stopped_moving" from="YSort/Player" to="Reader" method="_on_Player_stopped_moving"]
 [connection signal="animation_finished" from="YSort/Position2D/Willow/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="foyer_willow_entered" from="Reader" to="." method="_on_Reader_foyer_willow_entered"]
+[connection signal="foyer_willow_snapped" from="Reader" to="." method="_on_Reader_foyer_willow_snapped"]
 [connection signal="player_moved" from="Reader" to="YSort/Player" method="_on_Reader_player_moved"]
 [connection signal="player_movelocked" from="Reader" to="YSort/Player" method="_on_Reader_player_movelocked"]
 [connection signal="player_turned" from="Reader" to="YSort/Player" method="_on_Reader_player_turned"]

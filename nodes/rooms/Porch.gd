@@ -11,6 +11,28 @@ func _ready():
 	reader.start( "res://readerfiles/porch_start.json", "001" )
 
 
+func _physics_process(delta):
+	if Input.is_action_pressed("move_down"):
+		$Debug/Down.show()
+	else:
+		$Debug/Down.hide()
+	
+	if Input.is_action_pressed("move_left"):
+		$Debug/Left.show()
+	else:
+		$Debug/Left.hide()
+	
+	if Input.is_action_pressed("move_right"):
+		$Debug/Right.show()
+	else:
+		$Debug/Right.hide()
+	
+	if Input.is_action_pressed("move_up"):
+		$Debug/Up.show()
+	else:
+		$Debug/Up.hide()
+
+
 func _on_Reader_camera_snapped():
 	room_cam.current = false
 	play_cam.current = true

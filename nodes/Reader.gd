@@ -67,8 +67,9 @@ signal player_movelocked # Emitted at the start of a cutscene, prevents player f
 # Signals that "room" lines emit
 signal player_turned( dir )
 signal player_moved # Probably should be "player_stepped" to be consistent but changing it isn't worth the hassle
-signal camera_snapped
+signal camera_snapped # Oh, this should probably be something like "porch_camera_snapped", huh?
 signal foyer_willow_entered
+signal foyer_willow_snapped
 
 
 
@@ -187,9 +188,11 @@ func parse_index():
 						emit_signal("camera_snapped")
 						next_line()
 				"foyer":
-					print("ran")
 					if dictionary[index]["action"] == "willow_enter":
 						emit_signal("foyer_willow_entered")
+						wait = true
+					elif dictionary[index]["action"] == "willow_snap":
+						emit_signal("foyer_willow_snapped")
 						wait = true
 		
 		"stage": # Changes the portraits displayed above the reader box
