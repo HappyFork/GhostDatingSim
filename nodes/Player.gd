@@ -9,7 +9,7 @@ onready var sprite = $Sprite # Displays the current player sprite
 onready var move_timer = $Timer # Timer to control the input pause after turning and exiting dialogue
 onready var tween = $Tween # Moves the player between tiles
 onready var look = $RayCast2D # Checks for collision in front of the player
-onready var willow_anim = $Willow/AnimationPlayer # The version of Willow that follows the player
+onready var willow_anim = $WillowImproved/FadeAnimPlayer # The version of Willow that follows the player
 
 
 # Export variables
@@ -164,9 +164,10 @@ func change_collision_mask( mask ):
 	look.set_collision_mask( mask )
 
 
-# Activate Willow.
-func activate_willow():
-	willow_anim.play("FadeIn")
+## Activate Willow.
+#func activate_willow():
+#	$WillowImproved.show()
+#	willow_anim.play("FadeInForeground")
 
 
 ### --- Signal Functions --- ###

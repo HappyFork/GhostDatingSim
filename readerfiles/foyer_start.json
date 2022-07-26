@@ -1,8 +1,8 @@
 {
     "001" : {"type": "room", "target": "player", "action": "turn", "direction": "up", "next": "002"},
-    "002" : {"type": "wait", "time": 1, "next": "003"},
-    "003" : {"type": "room", "target": "player", "action": "step", "next": "004"},
-    "004" : {"type": "room", "target": "foyer", "action": "willow_enter", "next": "005"},
+    "002" : {"type": "room", "target": "foyer", "action": "willow_enter", "next": "003"},
+    "003" : {"type": "wait", "time": 1, "next": "004"},
+    "004" : {"type": "room", "target": "player", "action": "step", "next": "005"},
     "005" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "006"},
     "006" : {"type": "stage", "slot": 4, "portrait": "willow", "anim": "float_in", "next": "007"},
     "007" : {"type": "text", "text": "Wow, an orb!", "next": "008"},

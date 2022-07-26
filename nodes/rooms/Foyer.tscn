@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Tileset2.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scripts/ElevatorTile.gd" type="Script" id=4]
 [ext_resource path="res://nodes/Reader.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/Willow.tscn" type="PackedScene" id=6]
+[ext_resource path="res://nodes/WillowTarget.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tileset2.png 0"
@@ -381,10 +382,12 @@ cell_size = Vector2( 500, 500 )
 format = 1
 tile_data = PoolIntArray( -327684, 536870920, 0, -393213, 8, 0, -262148, 536870919, 0, -262147, 536870917, 0, -262146, 536870917, 0, -262145, 536870917, 0, -327680, 5, 0, -327679, 5, 0, -327678, 5, 0, -327677, 7, 0, -196612, 536870921, 0, -196611, 536870918, 0, -196610, 536870918, 0, -196609, 536870918, 0, -262144, 6, 0, -262143, 6, 0, -262142, 6, 0, -262141, 9, 0, -131076, 536870922, 0, -196605, 10, 0, -65541, 536870916, 0, -65540, 536870915, 0, -65539, 536870913, 0, -131070, 10, 0, -131069, 3, 0, -131068, 4, 0, -4, 536870914, 0, -3, 536870912, 0, -65534, 0, 0, -65533, 2, 0 )
 
-[node name="Position2D" type="Position2D" parent="YSort"]
-position = Vector2( 32, -32 )
+[node name="Willow" parent="." instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 1 )
+target_path = NodePath("../WillowTarget")
 
-[node name="Willow" parent="YSort/Position2D" instance=ExtResource( 6 )]
+[node name="WillowTarget" parent="." instance=ExtResource( 7 )]
+position = Vector2( 32, -32 )
 
 [node name="FloorCollision" type="StaticBody2D" parent="."]
 
@@ -459,7 +462,7 @@ color = Color( 0.215686, 0.2, 0.231373, 1 )
 
 [connection signal="changed_floor" from="YSort/Player" to="." method="_on_KinematicBody2D_changed_floor"]
 [connection signal="stopped_moving" from="YSort/Player" to="Reader" method="_on_Player_stopped_moving"]
-[connection signal="animation_finished" from="YSort/Position2D/Willow/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="Willow/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="foyer_willow_entered" from="Reader" to="." method="_on_Reader_foyer_willow_entered"]
 [connection signal="foyer_willow_snapped" from="Reader" to="." method="_on_Reader_foyer_willow_snapped"]
 [connection signal="player_moved" from="Reader" to="YSort/Player" method="_on_Reader_player_moved"]
@@ -467,4 +470,4 @@ color = Color( 0.215686, 0.2, 0.231373, 1 )
 [connection signal="player_turned" from="Reader" to="YSort/Player" method="_on_Reader_player_turned"]
 [connection signal="read_ended" from="Reader" to="YSort/Player" method="_on_Reader_read_ended"]
 
-[editable path="YSort/Position2D/Willow"]
+[editable path="Willow"]

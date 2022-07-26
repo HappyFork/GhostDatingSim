@@ -9,8 +9,8 @@ onready var play_cam = $YSort/Player/Camera2D
 onready var ysort = $YSort
 onready var upperlayer = $YSort/Upper
 
-onready var room_willow = $YSort/Position2D
-onready var room_willow_anim = $YSort/Position2D/Willow/AnimationPlayer
+onready var willow = $Willow
+onready var willow_anim = $Willow/AnimationPlayer
 
 
 var ground = true
@@ -21,7 +21,7 @@ func _ready():
 #	player.turn( Vector2.UP, player.up_sprite )
 	play_cam.current = true
 	reader.start( "res://readerfiles/foyer_start.json", "001" )
-	$YSort/Player/Willow/AnimationPlayer.connect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
+	#$YSort/Player/Willow/AnimationPlayer.connect("animation_finished", self, "_on_AnimationPlayer_animation_finished")
 
 
 func _physics_process(delta):
@@ -51,18 +51,17 @@ func _on_KinematicBody2D_changed_floor():
 
 
 func _on_Reader_foyer_willow_entered():
-	room_willow_anim.play("FadeIn")
+	willow_anim.play("FadeIn")
 
 func _on_Reader_foyer_willow_snapped():
-	room_willow_anim.play("FadeOut")
+	willow.target = $YSort/Player/WillowTarget
+	Global.foyer_willow_joined = true
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "FadeIn":
 		reader._on_Timer_timeout() # Maybe I should rename that function. Maybe unwait()
-	elif anim_name == "FadeOut":
-		room_willow.queue_free()
-		Global.foyer_willow_joined = true
-		player.activate_willow()
+#	elif anim_name == "FadeOut":
+#		pass
 
 
 
