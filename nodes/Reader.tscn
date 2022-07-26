@@ -98,4 +98,5 @@ position = Vector2( -200, 250 )
 
 [node name="RightOffscreen" type="Position2D" parent="."]
 position = Vector2( 1224, 250 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

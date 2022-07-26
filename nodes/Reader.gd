@@ -290,6 +290,9 @@ func end():
 	# Reset the sprites
 	reset_all_sprites()
 	
+	# Resets wait if it's set to true
+	wait = false
+	
 	# Emits the reader ended signal
 	emit_signal("read_ended")
 
