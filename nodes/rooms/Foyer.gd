@@ -2,7 +2,7 @@ extends Node2D
 
 
 onready var player = $YSort/Player
-onready var reader = $Reader
+onready var reader = $NewReader
 
 onready var play_cam = $YSort/Player/Camera2D
 

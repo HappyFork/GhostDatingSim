@@ -1,5 +1,5 @@
 {
     "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
-    "002" : {"type": "text", "text": "These are some nice hedges.", "next": "003" },
-    "003" : {"type": "text", "text": "I wonder if there are any clippers around.", "next": "end" }
+    "002" : {"type": "text", "name": "Player", "speaking": 1, "text": "These are some nice hedges.", "next": "003" },
+    "003" : {"type": "text", "name": "Player", "speaking": 1, "text": "I wonder if there are any clippers around.", "next": "end" }
 }

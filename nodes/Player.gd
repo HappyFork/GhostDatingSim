@@ -187,8 +187,12 @@ func _on_Tween_tween_all_completed():
 
 
 # Lets the Reader lock player movement at the start of a cutscene
-func _on_Reader_player_movelocked():
+func _on_Reader_read_started():
 	move_lock = true
+
+# Depreciated lol
+#func _on_Reader_player_movelocked():
+#	move_lock = true
 
 
 # Lets the player move after a reader box is closed
@@ -197,9 +201,12 @@ func _on_Reader_read_ended():
 	# move_lock to false otherwise the same input will start a new interaction
 
 
-# Moves the player during cutscenes
-func _on_Reader_player_moved():
+func _on_Reader_player_stepped():
 	step(position + look.cast_to)
+
+# Depreciated lol
+#func _on_Reader_player_moved():
+#	step(position + look.cast_to)
 
 
 # Turns the player during cutscenes

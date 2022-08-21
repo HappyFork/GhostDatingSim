@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/some_fminor_medieval_thing.mp3-0efb39dc1b8eabbe583208935f1592a2.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/some_fminor_medieval_thing.mp3"
+dest_files=[ "res://.import/some_fminor_medieval_thing.mp3-0efb39dc1b8eabbe583208935f1592a2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

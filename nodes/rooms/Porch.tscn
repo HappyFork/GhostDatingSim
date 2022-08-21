@@ -1,12 +1,13 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/MansionFront.png" type="Texture" id=1]
 [ext_resource path="res://assets/Tileset.png" type="Texture" id=2]
 [ext_resource path="res://assets/Gate.png" type="Texture" id=3]
 [ext_resource path="res://nodes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://nodes/Reader.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sounds/thunder.wav" type="AudioStream" id=5]
 [ext_resource path="res://scripts/Interactable.gd" type="Script" id=6]
-[ext_resource path="res://assets/CursorArrow.png" type="Texture" id=7]
+[ext_resource path="res://assets/sounds/rain-atmo.wav" type="AudioStream" id=7]
+[ext_resource path="res://nodes/NewReader.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/Pot.png" type="Texture" id=10]
 [ext_resource path="res://nodes/rooms/Porch.gd" type="Script" id=12]
 
@@ -712,6 +713,36 @@ extents = Vector2( 56, 24 )
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 24, 24 )
 
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.529412, 0.545098, 0.627451, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Thunderclap"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.529412, 0.545098, 0.627451, 1 ), Color( 0.694118, 0.705882, 0.780392, 1 ), Color( 0.529412, 0.545098, 0.627451, 1 ) ]
+}
+
 [node name="Porch" type="Node2D"]
 script = ExtResource( 12 )
 
@@ -804,44 +835,29 @@ position = Vector2( 32, 352 )
 current = true
 smoothing_enabled = true
 
-[node name="Reader" parent="." instance=ExtResource( 5 )]
-slide_speed = 2.25
-tween_type = 6
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.529412, 0.545098, 0.627451, 1 )
 
-[node name="Debug" type="CanvasLayer" parent="."]
+[node name="NewReader" parent="." instance=ExtResource( 8 )]
 
-[node name="Right" type="Sprite" parent="Debug"]
-visible = false
-position = Vector2( 969.51, 100.23 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
+[node name="AtmoPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
 
-[node name="Left" type="Sprite" parent="Debug"]
-visible = false
-position = Vector2( 825.88, 101.49 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
-flip_h = true
+[node name="ThunderPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
-[node name="Down" type="Sprite" parent="Debug"]
-visible = false
-position = Vector2( 895.175, 124.168 )
-rotation = 1.5708
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
+[node name="ThunderTimer" type="Timer" parent="."]
 
-[node name="Up" type="Sprite" parent="Debug"]
-visible = false
-position = Vector2( 895.175, 67.4719 )
-rotation = 1.5708
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 7 )
-flip_h = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 19 )
+anims/Thunderclap = SubResource( 20 )
 
 [connection signal="interacted" from="Player" to="." method="_on_Player_interacted"]
-[connection signal="stopped_moving" from="Player" to="Reader" method="_on_Player_stopped_moving"]
-[connection signal="camera_snapped" from="Reader" to="." method="_on_Reader_camera_snapped"]
-[connection signal="player_moved" from="Reader" to="Player" method="_on_Reader_player_moved"]
-[connection signal="player_movelocked" from="Reader" to="Player" method="_on_Reader_player_movelocked"]
-[connection signal="player_turned" from="Reader" to="Player" method="_on_Reader_player_turned"]
-[connection signal="read_ended" from="Reader" to="Player" method="_on_Reader_read_ended"]
+[connection signal="stopped_moving" from="Player" to="NewReader" method="_on_Player_stopped_moving"]
+[connection signal="player_stepped" from="NewReader" to="Player" method="_on_Reader_player_stepped"]
+[connection signal="player_turned" from="NewReader" to="Player" method="_on_Reader_player_turned"]
+[connection signal="porch_camera_snapped" from="NewReader" to="." method="_on_Reader_porch_camera_snapped"]
+[connection signal="read_ended" from="NewReader" to="Player" method="_on_Reader_read_ended"]
+[connection signal="read_started" from="NewReader" to="Player" method="_on_Reader_read_started"]
+[connection signal="timeout" from="ThunderTimer" to="." method="_on_ThunderTimer_timeout"]

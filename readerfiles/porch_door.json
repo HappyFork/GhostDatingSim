@@ -1,19 +1,20 @@
 {
     "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
-    "002" : {"type": "text", "text": "The door is locked. Maybe there's a key around here somewhere.", "next": "003" },
+    "002" : {"type": "text", "name": "Player", "speaking": 1, "text": "The door is locked. Maybe there's a key around here somewhere.", "next": "003" },
     "003" : {"type": "variable", "variable": "porch_door_checked", "value": true, "next": "end" },
 
     "004" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "005" },
-    "005" : {"type": "text", "text": "I still don't have the key. Where do people hide their spare keys?", "next": "end" },
+    "005" : {"type": "text", "name": "Player", "speaking": 1, "text": "I still don't have the key. Where do people hide their spare keys?", "next": "end" },
 
     "006" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "007" },
-    "007" : {"type": "choice", "text": "The door is locked. Should I try the key I found?",
-            "choice1": {"text": "Yes", "next": "008"},
-            "choice2": {"text": "No", "next": "011"} },
+    "007" : {"type": "choice", "name": "Player", "speaking": 1, "text": "The door is locked. Should I try the key I found?", "choices": {
+        "1": {"text": "Yes", "next": "008"},
+        "2": {"text": "No", "next": "011"}
+    } },
     
-    "008" : {"type": "text", "text": "Looks like it worked!", "next": "009" },
-    "009" : {"type": "text", "text": "Okay, deep breath. Here I go!", "next": "010"},
+    "008" : {"type": "text", "name": "Player", "speaking": 1, "text": "Looks like it worked!", "next": "009" },
+    "009" : {"type": "text", "name": "Player", "speaking": 1, "text": "Okay, deep breath. Here I go!", "next": "010"},
     "010" : {"type": "change_room", "room" : "foyer" },
 
-    "011" : {"type": "text", "text": "I want to look around here a little bit more.", "next": "end" }
+    "011" : {"type": "text", "name": "Player", "speaking": 1, "text": "I want to look around here a little bit more.", "next": "end" }
 }

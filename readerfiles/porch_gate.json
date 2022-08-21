@@ -1,27 +1,28 @@
 {
     "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
-    "002" : {"type": "text", "text": "I don't want to leave yet. I just got here.", "next": "003" },
+    "002" : {"type": "text", "name": "Player", "speaking": 1, "text": "I don't want to leave yet. I just got here.", "next": "003" },
     "003" : {"type": "variable", "variable": "porch_gate_checked", "value": 1, "next": "end" },
 
     "004" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "005" },
-    "005" : {"type": "text", "text": "This place is creeping me out a little bit...", "next": "006" },
-    "006" : {"type": "text", "text": "But I went through all the trouble to bust this gate open.", "next": "007" },
-    "007" : {"type": "text", "text": "I owe it to the police to do some real breaking and entering.", "next": "008" },
+    "005" : {"type": "text", "name": "Player", "speaking": 1, "text": "This place is creeping me out a little bit...", "next": "006" },
+    "006" : {"type": "text", "name": "Player", "speaking": 1, "text": "But I went through all the trouble to bust this gate open.", "next": "007" },
+    "007" : {"type": "text", "name": "Player", "speaking": 1, "text": "I owe it to the police to do some real breaking and entering.", "next": "008" },
     "008" : {"type": "variable", "variable": "porch_gate_checked", "value": 1, "next": "end" },
 
     "009" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "010" },
-    "010" : {"type": "text", "text": "I found this key, but I'm having second thoughts...", "next": "016" },
+    "010" : {"type": "text", "name": "Player", "speaking": 1, "text": "I found this key, but I'm having second thoughts...", "next": "016" },
 
     "011" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "012" },
-    "012" : {"type": "text", "text": "Ugh, I can't figure out how to get in.", "next": "016" },
+    "012" : {"type": "text", "name": "Player", "speaking": 1, "text": "Ugh, I can't figure out how to get in.", "next": "016" },
 
     "013" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "014" },
-    "014" : {"type": "text", "text": "The vibes here are so rancid I can't even approach the door.", "next": "015" },
-    "015" : {"type": "text", "text": "I should get out of here.", "next": "016" },
+    "014" : {"type": "text", "name": "Player", "speaking": 1, "text": "The vibes here are so rancid I can't even approach the door.", "next": "015" },
+    "015" : {"type": "text", "name": "Player", "speaking": 1, "text": "I should get out of here.", "next": "016" },
 
-    "016" : {"type": "choice", "text": "Should I leave?",
-            "choice1": {"text": "Leave", "next": "017" },
-            "choice2": {"text": "Stay", "next": "end" } },
+    "016" : {"type": "choice", "name": "Player", "speaking": 1, "text": "Should I leave?", "choices": {
+        "1": {"text": "Leave", "next": "017"},
+        "2": {"text": "Stay", "next": "end"}
+    } },
     
     "017" : {"type": "change_room", "room": "bad_end" }
 }

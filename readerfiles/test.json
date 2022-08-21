@@ -1,0 +1,19 @@
+{
+    "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
+    "002" : {"type": "stage", "slot": 4, "portrait": "willow", "anim": "float_in", "next": "003"},
+    "003" : {"type": "text", "name": "Player", "speaking": 1, "text": "Hello Willow!", "next": "004"},
+    "004" : {"type": "text", "name": "Willow", "speaking": 4, "text": "(tiktok voice) Hello Mario.", "next": "005"},
+    "005" : {"type": "choice", "name": "Willow", "speaking": 4, "text": "Pick an answer to this question!", "choices": {
+        "1": {"text": "Yes", "next": "006"},
+        "2": {"text": "No", "next": "007"},
+        "3": {"text": "Maybe", "next": "008"},
+        "4": {"text": "No Way!", "next": "009"},
+        "5": {"text": "Absolutely!", "next": "010"}
+    } },
+
+    "006" : {"type": "text", "text": "You chose yes", "next": "end"},
+    "007" : {"type": "text", "text": "You chose no", "next": "end"},
+    "008" : {"type": "text", "text": "You chose maybe", "next": "end"},
+    "009" : {"type": "text", "text": "You chose no way", "next": "end"},
+    "010" : {"type": "text", "text": "You chose absolutely", "next": "end"}
+}

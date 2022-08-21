@@ -1,41 +1,38 @@
 extends Node2D
 
 
+var rng = RandomNumberGenerator.new()
+export var th_low = 10.0
+export var th_high = 60.0
+
+
 onready var player = $Player
-onready var reader = $Reader
+onready var reader = $NewReader
 onready var play_cam = $Player/Camera2D
 onready var room_cam = $StartCamera
+onready var thdr_sound = $ThunderPlayer
+onready var thdr_timer = $ThunderTimer
+onready var thdr_anim = $AnimationPlayer
 
 
 func _ready():
+	# Set and start the thunder timer
+	rng.randomize()
+	thdr_timer.wait_time = rng.randf_range( th_low/10, th_high/10 )
+	thdr_timer.start()
+	
+	# Start the beginning cutscene
 	reader.start( "res://readerfiles/porch_start.json", "001" )
 
 
-func _physics_process(delta):
-	if Input.is_action_pressed("move_down"):
-		$Debug/Down.show()
-	else:
-		$Debug/Down.hide()
-	
-	if Input.is_action_pressed("move_left"):
-		$Debug/Left.show()
-	else:
-		$Debug/Left.hide()
-	
-	if Input.is_action_pressed("move_right"):
-		$Debug/Right.show()
-	else:
-		$Debug/Right.hide()
-	
-	if Input.is_action_pressed("move_up"):
-		$Debug/Up.show()
-	else:
-		$Debug/Up.hide()
-
-
-func _on_Reader_camera_snapped():
+func _on_Reader_porch_camera_snapped():
 	room_cam.current = false
 	play_cam.current = true
+
+#Depreciated lol
+#func _on_Reader_camera_snapped():
+#	room_cam.current = false
+#	play_cam.current = true
 
 
 func _on_Player_interacted( filepath, intername ):
@@ -79,3 +76,11 @@ func _on_Player_interacted( filepath, intername ):
 	
 	if start != "end": # If start changed, calls the reader start function with that value
 		reader.start( filepath, start )
+
+
+func _on_ThunderTimer_timeout():
+	thdr_sound.play()
+	thdr_anim.play("Thunderclap")
+	thdr_timer.wait_time = rng.randf_range( th_low, th_high )
+	thdr_timer.start()
+	

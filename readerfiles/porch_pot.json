@@ -1,24 +1,25 @@
 {
     "001" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "002" },
-    "002" : {"type": "text", "text": "A decorative pot.", "next": "003" },
-    "003" : {"type": "text", "text": "Oh, looks like something's inside.", "next": "006" },
+    "002" : {"type": "text", "name": "Player", "speaking": 1, "text": "A decorative pot.", "next": "003" },
+    "003" : {"type": "text", "name": "Player", "speaking": 1, "text": "Oh, looks like something's inside.", "next": "006" },
 
     "004" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "005" },
-    "005" : {"type": "text", "text": "I'm probably going to need that key.", "next": "006" },
+    "005" : {"type": "text", "name": "Player", "speaking": 1, "text": "I'm probably going to need that key.", "next": "006" },
 
     "006" : {"type": "inventory", "variable": "porch_key", "action": "add", "next": "007" },
     "007" : {"type": "variable", "variable": "porch_pot_checked", "value": true, "next": "008" },
     "008" : {"type": "text", "text": "Key added to inventory.", "next": "end"},
 
     "009" : {"type": "stage", "slot": 1, "portrait": "playerneutral", "anim": "slide_in", "next": "010" },
-    "010" : {"type": "text", "text": "This is where I found the key.", "next": "011"},
-    "011" : {"type": "choice", "text": "Should I put it back?",
-            "choice1": {"text": "Return key", "next": "012" },
-            "choice2": {"text": "Keep key", "next": "015" } },
+    "010" : {"type": "text", "name": "Player", "speaking": 1, "text": "This is where I found the key.", "next": "011"},
+    "011" : {"type": "choice", "name": "Player", "speaking": 1, "text": "Should I put it back?", "choices": {
+        "1": {"text": "Return key", "next": "012"},
+        "2": {"text": "Keep key", "next": "015"}
+    } },
     
     "012" : {"type": "inventory", "variable": "porch_key", "action": "remove", "next": "013" },
     "013" : {"type": "text", "text": "Key removed from inventory", "next": "014" },
-    "014" : {"type": "text", "text": "I put it back where it was hidden. No one will be able to tell.", "next": "end" },
+    "014" : {"type": "text", "name": "Player", "speaking": 1, "text": "I put it back where it was hidden. No one will be able to tell.", "next": "end" },
 
-    "015" : {"type": "text", "text": "Yeah, that's silly. What if I need it?", "next": "end" }
+    "015" : {"type": "text", "name": "Player", "speaking": 1, "text": "Yeah, that's silly. What if I need it?", "next": "end" }
 }
