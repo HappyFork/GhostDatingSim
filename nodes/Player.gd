@@ -5,7 +5,8 @@ extends KinematicBody2D
 ### --- Variables --- ###
 
 # Onready variables
-onready var sprite = $Sprite # Displays the current player sprite
+#onready var sprite = $Sprite # Displays the current player sprite
+onready var asprite = $AnimatedSprite # Displays the current sprite and plays walking animation
 onready var move_timer = $Timer # Timer to control the input pause after turning and exiting dialogue
 onready var tween = $Tween # Moves the player between tiles
 onready var look = $RayCast2D # Checks for collision in front of the player
@@ -13,14 +14,15 @@ onready var willow_anim = $WillowImproved/FadeAnimPlayer # The version of Willow
 
 
 # Export variables
-export var up_sprite : Texture # Sprite when facing up
-export var down_sprite : Texture # Sprite when facing down
-export var left_sprite : Texture # Sprite when facing left
-export var right_sprite : Texture # Sprite when facing right
-export var speed = 3 # How quickly the player moves between tiles
+#export var up_sprite : Texture # Sprite when facing up
+#export var down_sprite : Texture # Sprite when facing down
+#export var left_sprite : Texture # Sprite when facing left
+#export var right_sprite : Texture # Sprite when facing right
+export var speed = 3.0 # How quickly the player moves between tiles
 
 
 # Regular variables
+var current_anim = "FrontWalk"
 var tile_size = 64 # Size of the tiles. Self explanatory
 var move_lock = false # When true, the player can't move
 var on_elevator = null # Holds the elevator tile the player is on, if any
@@ -40,6 +42,8 @@ signal changed_floor # Emits when the player changes floors
 func _ready() -> void:
 	position = position.snapped( Vector2.ONE * tile_size ) # Snaps the player to the movement grid
 	position += Vector2.ONE * tile_size/2 # Centers the player on the tile
+	#asprite.animation = "FrontWalk"
+	#asprite.frame = 0 # Should face the player down?
 	#cutscene_turn( Vector2.DOWN, down_sprite ) # Player starts by facing down
 
 
@@ -53,22 +57,22 @@ func _physics_process(delta):
 		
 		if( Input.is_action_pressed("move_up") ):
 			if( look.cast_to != Vector2.UP * tile_size ):
-				turn( Vector2.UP, up_sprite )
+				turn( Vector2.UP, "BackWalk" )
 			else:
 				check_step()
-		if( Input.is_action_pressed("move_down") ):
+		elif( Input.is_action_pressed("move_down") ):
 			if( look.cast_to != Vector2.DOWN * tile_size ):
-				turn( Vector2.DOWN, down_sprite )
+				turn( Vector2.DOWN, "FrontWalk" )
 			else:
 				check_step()
-		if( Input.is_action_pressed("move_left") ):
+		elif( Input.is_action_pressed("move_left") ):
 			if( look.cast_to != Vector2.LEFT * tile_size ):
-				turn( Vector2.LEFT, left_sprite )
+				turn( Vector2.LEFT, "LeftWalk" )
 			else:
 				check_step()
-		if( Input.is_action_pressed("move_right") ):
+		elif( Input.is_action_pressed("move_right") ):
 			if( look.cast_to != Vector2.RIGHT * tile_size ):
-				turn( Vector2.RIGHT, right_sprite )
+				turn( Vector2.RIGHT, "RightWalk" )
 			else:
 				check_step()
 
@@ -77,19 +81,23 @@ func _physics_process(delta):
 ### --- Custom Functions --- ###
 
 # Turn function. Turns the character
-func turn( dir, spr ):
+func turn( dir, anim ):
+	current_anim = anim
 	look.cast_to = dir * tile_size
 	look.force_raycast_update()
-	sprite.texture = spr
+	asprite.animation = current_anim
+	asprite.frame = 0
 	move_lock = true
 	move_timer.start()
 
 
 # Cutscene turn function. Turns the character without returning control to the player
-func cutscene_turn( dir, spr ):
+func cutscene_turn( dir, anim ):
+	current_anim = anim
 	look.cast_to = dir * tile_size
 	look.force_raycast_update()
-	sprite.texture = spr
+	asprite.animation = current_anim
+	asprite.frame = 0
 
 
 # Checks to see that the player can take a step forward, and calls step if so
@@ -129,6 +137,8 @@ func check_step():
 # Move function. Moves the character in the direction that they're facing
 func step( new_pos ):
 	tween.interpolate_property( self, "position", position, new_pos, 1.0/speed, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT )
+	#asprite.frame = 1
+	asprite.play( current_anim )
 	tween.start()
 
 
@@ -179,6 +189,8 @@ func _on_Timer_timeout():
 
 # When the tween ends, lets the reader know, then checks to see if player needs to switch floors.
 func _on_Tween_tween_all_completed():
+	asprite.stop()
+	asprite.frame = 0 # Stop walking animation and go back to 0 frame
 	emit_signal("stopped_moving")
 	
 	if change_floor_when_stopped:
@@ -213,10 +225,10 @@ func _on_Reader_player_stepped():
 func _on_Reader_player_turned(dir):
 	match dir:
 		"up":
-			cutscene_turn( Vector2.UP, up_sprite )
+			cutscene_turn( Vector2.UP, "BackWalk" )
 		"down":
-			cutscene_turn( Vector2.DOWN, down_sprite )
+			cutscene_turn( Vector2.DOWN, "FrontWalk" )
 		"left":
-			cutscene_turn( Vector2.LEFT, left_sprite )
+			cutscene_turn( Vector2.LEFT, "LeftWalk" )
 		"right":
-			cutscene_turn( Vector2.RIGHT, right_sprite )
+			cutscene_turn( Vector2.RIGHT, "RightWalk" )
