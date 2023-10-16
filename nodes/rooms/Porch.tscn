@@ -836,6 +836,7 @@ current = true
 smoothing_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color( 0.529412, 0.545098, 0.627451, 1 )
 
 [node name="NewReader" parent="." instance=ExtResource( 8 )]
